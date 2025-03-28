@@ -9,7 +9,7 @@ import { GoogleAuthGuard } from './google-auth/google-auth.guard';
 export class UsersController {
   constructor(
     @Inject(AUTH_SERVICE) private readonly authClient: ClientProxy,
-  ) {}
+  ) { }
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
@@ -32,5 +32,6 @@ export class UsersController {
   @UseGuards(GoogleAuthGuard)
   @Get('google-callback')
   async googleCallback(@Req() req) {
+    return req.user;
   }
 }
