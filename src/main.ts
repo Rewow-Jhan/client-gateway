@@ -11,9 +11,9 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  await app.listen(envs.PORT);
+  await app.listen(envs.port);
 
-  logger.log(`Gateway running on http://localhost:${envs.PORT}`);
+  logger.log(`Gateway running on http://localhost:${envs.port}`);
 }
 
 bootstrap();

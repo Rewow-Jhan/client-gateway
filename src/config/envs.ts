@@ -3,10 +3,14 @@ import * as joi from 'joi';
 
 interface EnvVars {
   PORT: number;
+  AUTH_MICROSERVICE_HOST: string;
+  AUTH_MICROSERVICE_PORT: number;
 }
 
 const envVarsSchema = joi.object({
   PORT: joi.number().required(),
+  AUTH_MICROSERVICE_HOST: joi.string().required(),
+  AUTH_MICROSERVICE_PORT: joi.number().required(),
 }).unknown(true);
 
 const { error, value } = envVarsSchema.validate(process.env);
@@ -18,5 +22,7 @@ if (error) {
 const envVars: EnvVars = value;
 
 export const envs = {
-  PORT: envVars.PORT,
+  port: envVars.PORT,
+  authMicroserviceHost: envVars.AUTH_MICROSERVICE_HOST,
+  authMicroservicePort: envVars.AUTH_MICROSERVICE_PORT,
 }
