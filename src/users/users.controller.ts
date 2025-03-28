@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Req, UseGuards } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { AUTH_SERVICE } from 'src/config';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -27,5 +27,10 @@ export class UsersController {
   @UseGuards(GoogleAuthGuard)
   @Get('google-login')
   async googleLogin() {
+  }
+
+  @UseGuards(GoogleAuthGuard)
+  @Get('google-callback')
+  async googleCallback(@Req() req) {
   }
 }

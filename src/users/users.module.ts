@@ -5,10 +5,11 @@ import { AUTH_SERVICE, envs } from 'src/config';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { ConfigModule } from '@nestjs/config';
 import googleOauthConfig from 'src/config/google-oauth';
+import { UsersService } from './user.service';
 
 @Module({
   controllers: [UsersController],
-  providers: [GoogleStrategy],
+  providers: [UsersService, GoogleStrategy],
   imports: [
     ConfigModule.forFeature(googleOauthConfig),
     ClientsModule.register([
