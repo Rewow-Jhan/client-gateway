@@ -1,8 +1,9 @@
-import { BadRequestException, Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { AUTH_SERVICE } from 'src/config';
 import { CreateUserDto } from './dto/create-user.dto';
 import { firstValueFrom } from 'rxjs';
+import { GoogleAuthGuard } from './google-auth/google-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -21,5 +22,10 @@ export class UsersController {
     } catch (error) {
       throw new RpcException(error);
     }
+  }
+
+  @UseGuards(GoogleAuthGuard)
+  @Get('google-login')
+  async googleLogin() {
   }
 }
