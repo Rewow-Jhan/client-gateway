@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { envs } from './config/envs';
+import { ExceptionFilter } from './common/exceptions/rpc-exception.filter';
 
 async function bootstrap() {
 
@@ -17,6 +18,8 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  app.useGlobalFilters(new ExceptionFilter());
 
   await app.listen(envs.port);
 
