@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Inject, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
-import { AUTH_SERVICE } from 'src/config';
+import { AUTH_SERVICE, envs } from 'src/config';
 import { CreateUserDto } from './dto/create-user.dto';
 import { firstValueFrom } from 'rxjs';
 import { GoogleAuthGuard } from './google-auth/google-auth.guard';
@@ -31,7 +31,7 @@ export class UsersController {
 
   @UseGuards(GoogleAuthGuard)
   @Get('google-callback')
-  async googleCallback(@Req() req) {
-    return req.user;
+  async googleCallback(@Req() req, @Res() res) {
+    res.redirect(envs.frontendUrl + '/login/success?token=' + req.user.token);
   }
 }

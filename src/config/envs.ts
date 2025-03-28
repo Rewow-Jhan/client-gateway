@@ -9,6 +9,7 @@ interface EnvVars {
   GOOGLE_CLIENT_SECRET: string;
   JWT_SECRET: string;
   GOOGLE_CALLBACK_URL: string;
+  FRONTEND_URL: string;
 }
 
 const envVarsSchema = joi.object({
@@ -19,6 +20,7 @@ const envVarsSchema = joi.object({
   GOOGLE_CLIENT_SECRET: joi.string().required(),
   JWT_SECRET: joi.string().required(),
   GOOGLE_CALLBACK_URL: joi.string().required(),
+  FRONTEND_URL: joi.string().required(),
 }).unknown(true);
 
 const { error, value } = envVarsSchema.validate(process.env);
@@ -37,4 +39,5 @@ export const envs = {
   googleClientSecret: envVars.GOOGLE_CLIENT_SECRET,
   jwtSecret: envVars.JWT_SECRET,
   googleCallbackUrl: envVars.GOOGLE_CALLBACK_URL,
+  frontendUrl: envVars.FRONTEND_URL,
 }
