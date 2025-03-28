@@ -1,11 +1,16 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { AUTH_SERVICE } from 'src/config';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor() {}
+  constructor(
+    @Inject(AUTH_SERVICE) private readonly authClient: ClientProxy,
+  ) {}
 
   @Post()
-  createUser() {
-    return 'This action adds a new user';
+  createUser(@Body() createUserDto: CreateUserDto) {
+    return this.authClient.send('create_user', createUserDto);
   }
 }
