@@ -10,6 +10,8 @@ interface EnvVars {
   JWT_SECRET: string;
   GOOGLE_CALLBACK_URL: string;
   FRONTEND_URL: string;
+  PETS_MICROSERVICE_HOST: string;
+  PETS_MICROSERVICE_PORT: number;
 }
 
 const envVarsSchema = joi.object({
@@ -21,6 +23,8 @@ const envVarsSchema = joi.object({
   JWT_SECRET: joi.string().required(),
   GOOGLE_CALLBACK_URL: joi.string().required(),
   FRONTEND_URL: joi.string().required(),
+  PETS_MICROSERVICE_HOST: joi.string().required(),
+  PETS_MICROSERVICE_PORT: joi.number().required(),
 }).unknown(true);
 
 const { error, value } = envVarsSchema.validate(process.env);
@@ -40,4 +44,6 @@ export const envs = {
   jwtSecret: envVars.JWT_SECRET,
   googleCallbackUrl: envVars.GOOGLE_CALLBACK_URL,
   frontendUrl: envVars.FRONTEND_URL,
+  petsMicroserviceHost: envVars.PETS_MICROSERVICE_HOST,
+  petsMicroservicePort: envVars.PETS_MICROSERVICE_PORT,
 }
